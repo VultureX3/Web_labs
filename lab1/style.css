@@ -4,7 +4,7 @@ div {
 }
 
 .navbar {
-    background-color: #BBE7FF;
+    background-color: #E2F6FF;
     width: 100%;
     height: 50px;
 }
@@ -15,6 +15,8 @@ div {
 
 .navbar li {
     display: inline;
+    border-right: 1px solid grey;
+    padding: 10px;
 }
 
 .header {
@@ -23,17 +25,27 @@ div {
     height: 200px;
 }
 
+.header h1 {
+    color: white;
+    margin: 30px;
+}
+
 .content {
     background-color: #DADADA;
     display: inline-block;
     width: 70%;
 }
 
+.content h3, .content p {
+    margin-left: 30px;
+}
+
 .sidebar {
     background-color: #A5C3FF;
     display: inline-block;
     vertical-align: top;
-    horizontal-align: right;
     width: calc(30% - 8px);
     height: 400px;
+    text-align: center;
+    margin-top: -50px;
 }
