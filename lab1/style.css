@@ -44,7 +44,7 @@ div {
 .sidebar {
     background-color: #A5C3FF;
     display: inline-block;
-    width: calc(30% - 7px);
+    width: 29.5%;
     float:right;
     text-align: center;
     position: absolute;
