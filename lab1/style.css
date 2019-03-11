@@ -10,6 +10,7 @@ div {
 }
 
 .navbar ul {
+    align: center;
     list-style-type: none;
 }
 
@@ -43,9 +44,28 @@ div {
 .sidebar {
     background-color: #A5C3FF;
     display: inline-block;
-    vertical-align: top;
-    width: calc(30% - 8px);
-    height: 400px;
+    width: calc(30% - 7px);
+    float:right;
     text-align: center;
-    margin-top: -50px;
+    position: absolute;
+    bottom: 0;
+    top: 200px;
+}
+
+@media (max-width: 800px) {
+  .sidebar {
+    position: relative;
+    top: 0;
+    display: block;
+    width: 100%;
+    }
+  .content {
+    width: 100%;
+    }
+}
+
+@media (max-width: 330px) {
+    .navbar li {
+      padding: 5px;
+    }
 }
