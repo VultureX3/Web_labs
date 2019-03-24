@@ -24,6 +24,11 @@
 .offers .display-3 {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 50px;
+}
+
+.review-form .display-4 {
+    font-size: 30px;
 }
 
 .offer {
