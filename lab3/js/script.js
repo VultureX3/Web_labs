@@ -1,5 +1,11 @@
 var canvas = document.createElement('canvas');
 
+var CANVAS_WIDTH = 800;
+var CANVAS_HEIGHT = 600;
+
+var IMAGE_WIDTH = 400;
+var IMAGE_HEIGHT = 300;
+
 function setAttributes(el, attrs) {
   for (var key in attrs) {
     el.setAttribute(key, attrs[key]);
@@ -8,8 +14,8 @@ function setAttributes(el, attrs) {
 
 setAttributes(canvas, {
     'id': 'canvas',
-    'width': '600px',
-    'height': '600px',
+    'width': CANVAS_WIDTH,
+    'height': CANVAS_HEIGHT,
     'style': 'border: 2px solid'
 })
 
@@ -17,16 +23,71 @@ var body = document.body;
 body.appendChild(canvas);
 var ctx = canvas.getContext('2d');
 
-var image1 = new Image();
-image1.src = 'https://unsplash.com/collections/2203755/300x300';
-image1.setAttribute("crossOrigin", "Anonymous");
-ctx.drawImage(image1, 0, 0, canvas.width / 2, canvas.height / 2);
-var image2 = new Image();
-image2.src = '../lab2/img/2.jpg';
-ctx.drawImage(image2, canvas.width / 2, 0, canvas.width / 2, canvas.height / 2);
-var image3 = new Image();
-image3.src = '../lab2/img/3.jpg';
-ctx.drawImage(image3, 0, canvas.height / 2, canvas.width / 2, canvas.height / 2);
-var image4 = new Image();
-image4.src = '../lab2/img/logo.jpg';
-ctx.drawImage(image4, canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2);
+var url1 = "https://source.unsplash.com/collection/1147624/400x300";
+var url2 = "https://source.unsplash.com/collection/1147628/400x300";
+var url3 = "https://source.unsplash.com/collection/1127163/400x300";
+var url4 = "https://source.unsplash.com/collection/1127173/400x300";
+
+var imageSources = [url1, url2, url3, url4];
+var images = [];
+var areImagesDrawed = false;
+var isTextFetched = false;
+var textToDraw = null;
+var resultImage = null;
+
+function drawImages() {
+  var dx = (CANVAS_WIDTH - 2 * IMAGE_WIDTH) * Math.random();
+  var dy = (CANVAS_HEIGHT - 2 * IMAGE_HEIGHT) * Math.random();
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  for (var i = 0; i < 4; i++) {
+    ctx.drawImage(
+      images[i],
+      (i % 2 && IMAGE_WIDTH) + dx,
+      (Math.floor(i / 2) && IMAGE_HEIGHT) + dy
+    );
+  }
+  areImagesDrawed = true;
+}
+
+var responseCount = 0;
+
+function fetchImage(suitableImages) {
+  responseCount++;
+  var image = new Image();
+
+  image.onerror = function(error) {
+    tryToFetchNext(suitableImages);
+  }.bind(this);
+
+  image.onload = function() {
+    suitableImages.push(image);
+    if (suitableImages.length < 4) {
+      fetchImage(suitableImages);
+    } else {
+      images = suitableImages;
+      drawImages();
+    }
+  }.bind(this);
+
+  image.setAttribute("crossOrigin", "Anonymous");
+  image.src = imageSources[suitableImages.length];
+}
+
+function collectFourImages() {
+  var suitableImages = [];
+  responseCount = 0;
+  fetchImage(suitableImages);
+
+  return suitableImages;
+}
+
+function generatePost() {
+  textToDraw = null;
+  isTextFetched = false;
+  areImagesDrawed = false;
+
+  collectFourImages();
+}
+
+generatePost();
+
