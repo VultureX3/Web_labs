@@ -13,7 +13,25 @@ canvas.setAttribute("height", CANVAS_HEIGHT);
 
 var br = document.createElement("br");
 
+var generateText = document.createElement("p");
+generateText.innerText = "Generate";
 
+var generateButton = document.createElement("button");
+generateButton.setAttribute("onclick", "generatePost()");
+generateButton.setAttribute("style", "margin-right: 15px");
+generateButton.appendChild(generateText);
+
+var saveText = document.createElement("p");
+saveText.innerText = "Save";
+
+var saveButton = document.createElement("button");
+saveButton.appendChild(saveText);
+
+var saveButtonLinkWrapper = document.createElement("a");
+saveButtonLinkWrapper.setAttribute("id", "download");
+saveButtonLinkWrapper.setAttribute("download", "collage.jpg");
+saveButtonLinkWrapper.setAttribute("href", "");
+saveButtonLinkWrapper.appendChild(saveButton);
 
 var body = document.getElementsByTagName("body")[0];
 body.appendChild(canvas);
